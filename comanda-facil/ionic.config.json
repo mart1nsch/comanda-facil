@@ -1,0 +1,7 @@
+{
+  "name": "comanda-facil",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
