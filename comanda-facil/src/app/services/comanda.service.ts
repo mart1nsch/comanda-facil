@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ComandaService {
-  private apiUrl = 'http://localhost:3000/orders';
+  private apiUrl = 'http://192.168.0.121:3000/orders';
 
   constructor(private http: HttpClient) { }
 

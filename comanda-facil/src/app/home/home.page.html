@@ -7,13 +7,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="container">
-  <ion-button expand="block" (click)="goToNewOrder()" class="button-home">Abrir Comanda</ion-button>
-  @for (order of orders; track order.COMANDA) {
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Comanda: {{order.COMANDA}}</ion-card-title>
-        <ion-card-subtitle>Mesa: {{order.MESA}}</ion-card-subtitle>
-      </ion-card-header>
-    </ion-card>
-  }
+  <div class="ion-padding" (click)="goToOrders()">
+    <ion-button expand="full">Comandas</ion-button>
+  </div>
 </ion-content>
