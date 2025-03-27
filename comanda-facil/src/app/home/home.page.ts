@@ -16,4 +16,8 @@ export class HomePage {
   goToOrders() {
     this.router.navigate(['/orders']);
   }
+
+  goToProducts() {
+    this.router.navigate(['/products']);
+  }
 }

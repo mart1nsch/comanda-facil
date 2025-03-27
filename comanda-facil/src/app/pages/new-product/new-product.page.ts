@@ -6,35 +6,35 @@ import { ComandaService } from '../../services/comanda.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-new-order',
-  templateUrl: './new-order.page.html',
-  styleUrls: ['./new-order.page.scss'],
+  selector: 'app-new-product',
+  templateUrl: './new-product.page.html',
+  styleUrls: ['./new-product.page.scss'],
   standalone: true,
   imports: [IonInput, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, CommonModule, FormsModule]
 })
-export class NewOrderPage implements OnInit {
-  mesa!: number;
-  comanda!: number;
+export class NewProductPage implements OnInit {
+  descricao!: string;
+  vlrUnitario!: number;
 
   constructor(private router: Router, private comandaService: ComandaService) { }
 
   ngOnInit() {
   }
 
-  goToOrders() {
-    this.router.navigate(['/orders']);
+  goToProducts() {
+    this.router.navigate(['/products']);
   }
 
-  createOrder() {
-    if (!this.comanda) {
-      alert('Comanda deve ser informada!');
+  createProduct() {
+    if (!this.descricao) {
+      alert('Descrição deve ser informada!');
       return;
     }
-    this.comandaService.newOrder('orders', this.mesa, this.comanda).subscribe(() => {
-      alert('Comanda criada com sucesso!');
-      this.router.navigate(['/orders']);
+    this.comandaService.newProduct('products', this.descricao, this.vlrUnitario).subscribe(() => {
+      alert('Produto criado com sucesso!');
+      this.router.navigate(['/products']);
     }, (err) => {
-      alert('Erro ao criar comanda: ' + err);
+      alert('Erro ao criar produto: ' + err);
     })
   }
 

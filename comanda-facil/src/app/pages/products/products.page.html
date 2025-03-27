@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Produtos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding">
+    <ion-button expand="block" class="button-home" (click)="goToHome()">Voltar</ion-button>
+    <ion-button expand="block" (click)="goToNewProduct()" class="button-home">Cadastrar Produto</ion-button>
+    @for (product of products; track product.ID) {
+      <ion-card>
+        <ion-card-header>
+          <input type="hidden" name="id" value="{{product.ID}}">
+          <ion-card-title>{{product.DESCRICAO}}</ion-card-title>
+          <ion-card-subtitle>R${{product.VALOR_UNITARIO}}</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    }
+  </div>
+</ion-content>

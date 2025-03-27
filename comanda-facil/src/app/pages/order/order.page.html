@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Itens da Comanda</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding">
+    <ion-button expand="block" (click)="goToOrders()">Voltar</ion-button>
+    <ion-button expand="block">Adicionar Item</ion-button>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Comanda: {{comanda}}</ion-card-title>
+        <ion-card-subtitle>Mesa: {{mesa}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>Item</ion-label>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label>Item</ion-label>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label>Item</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    <ion-button expand="block" color="danger">Excluir Comanda</ion-button>
+    <ion-button expand="block">Finalizar Comanda</ion-button>
+  </div>
+</ion-content>

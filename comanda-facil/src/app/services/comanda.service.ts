@@ -6,15 +6,23 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ComandaService {
-  private apiUrl = 'http://192.168.0.121:3000/orders';
+  private apiUrl = 'http://192.168.0.121:3000/';
 
   constructor(private http: HttpClient) { }
 
-  getOrders(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  getOrders(route: string): Observable<any> {
+    return this.http.get<any>(this.apiUrl + route);
   }
 
-  newOrder(mesa: number, comanda: number): Observable<any> {
-    return this.http.post<any>(this.apiUrl, { mesa, comanda });
+  newOrder(route: string, mesa: number, comanda: number): Observable<any> {
+    return this.http.post<any>(this.apiUrl + route, { mesa, comanda });
+  }
+
+  getProducts(route: string): Observable<any> {
+    return this.http.get<any>(this.apiUrl + route);
+  }
+
+  newProduct(route: string, descricao: string, vlrUnitario: number): Observable<any> {
+    return this.http.post<any>(this.apiUrl + route, { descricao, vlrUnitario });
   }
 }

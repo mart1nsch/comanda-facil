@@ -4,43 +4,39 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { ComandaService } from '../../services/comanda.service';
-import { Orders } from '../../models/orders.model';
+import { Products } from '../../models/product.model';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.page.html',
-  styleUrls: ['./orders.page.scss'],
+  selector: 'app-products',
+  templateUrl: './products.page.html',
+  styleUrls: ['./products.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, CommonModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, CommonModule, FormsModule]
 })
-export class OrdersPage implements OnInit {
-  orders: Orders[] = [];
+export class ProductsPage implements OnInit {
+  products: Products[] = [];
 
   constructor(private router: Router, private comandaService: ComandaService) { }
 
   ionViewWillEnter() {
-    this.getOrders();
+    this.getProducts();
   }
 
   ngOnInit() {
-    //this.getOrders();
+    //this.getProducts();
   }
 
   goToHome() {
     this.router.navigate(['/home']);
   }
 
-  goToNewOrder() {
-    this.router.navigate(['/new-order']);
+  goToNewProduct() {
+    this.router.navigate(['/new-product']);
   }
 
-  goToOrder(order: Object) {
-    this.router.navigate(['/order'], { queryParams: order });
-  }
-
-  getOrders() {
-    this.comandaService.getOrders('orders').subscribe(data => {
-      this.orders = data;
+  getProducts() {
+    this.comandaService.getOrders('products').subscribe(data => {
+      this.products = data;
     }, err => {
       console.error(err);
     });
