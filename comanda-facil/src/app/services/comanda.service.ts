@@ -18,6 +18,18 @@ export class ComandaService {
     return this.http.post<any>(this.apiUrl + route, { mesa, comanda });
   }
 
+  deleteOrder(route: string, id: number): Observable<any> {
+    return this.http.post<any>(this.apiUrl + route, { id });
+  }
+
+  finishOrder(route: string, id: number): Observable<any> {
+    return this.http.post<any>(this.apiUrl + route, { id });
+  }
+
+  getItems(route: string): Observable<any> {
+    return this.http.get<any>(this.apiUrl + route);
+  }
+
   getProducts(route: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + route);
   }

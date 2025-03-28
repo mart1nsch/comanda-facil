@@ -24,7 +24,7 @@ db.connect(err => {
 
 app.get('/orders', (req, res) => {
     console.log('chama consulta comandas');
-    db.query('SELECT * FROM COMANDAS ORDER BY COMANDA', (err, result) => {
+    db.query('SELECT * FROM COMANDAS WHERE PAGO = FALSE ORDER BY COMANDA', (err, result) => {
         if (err) {
             res.status(500).json({ error: err.message });
         } else {
@@ -36,11 +36,27 @@ app.get('/orders', (req, res) => {
 
 app.get('/products', (req, res) => {
     console.log('chama consulta produtos');
-    db.query('SELECT * FROM PRODUTOS', (err, result) => {
+    db.query('SELECT * FROM PRODUTOS ORDER BY DESCRICAO', (err, result) => {
         if (err) {
             res.status(500).json({ error: err.message });
         } else {
             console.log('Consultado Produtos');
+            res.json(result);
+        }
+    });
+});
+
+app.get('/order/items/:id', (req, res) => {
+    const id = req.params.id;
+
+    console.log('chama consulta itens comandas', id);
+
+    db.query('SELECT P.DESCRICAO, C.QUANTIDADE FROM PRODUTOS P, COMANDAS_ITEM C WHERE P.ID = C.PRODUTOS_ID AND C.COMANDAS_ID = ?', [id],(err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ error: err.message });
+        } else {
+            console.log('Consultado Comandas');
             res.json(result);
         }
     });
@@ -90,6 +106,42 @@ app.post('/orders/itens', (req, res) => {
         } else {
             console.log('Inserido Comanda');
             res.json({ id: result.insertId, comandaId, produtoId });
+        }
+    });
+});
+
+app.post('/orders/delete', (req, res) => {
+    const id = req.body.id;
+    
+    console.log('chama delete comanda');
+
+    db.query('DELETE FROM COMANDAS_ITEM WHERE COMANDAS_ID = ?', [id], (err, result) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+        } else {
+            db.query('DELETE FROM COMANDAS WHERE ID = ?', [id], (err, result) => {
+                if (err) {
+                    res.status(500).json({ error: err.message });
+                } else {
+                    console.log('Comanda Deletada');
+                    res.json({ id: id });
+                }
+            });
+        }
+    });
+});
+
+app.post('/orders/finish', (req, res) => {
+    const id = req.body.id;
+    
+    console.log('chama finalizar comanda');
+
+    db.query('UPDATE COMANDAS SET PAGO = TRUE WHERE ID = ?', [id], (err, result) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+        } else {
+            console.log('Comanda Finalizada');
+            res.json({ id: id });
         }
     });
 });

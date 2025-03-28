@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Pagamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding">
+    <ion-title>Valor Total:</ion-title>
+    <ion-title>R${{valorTotal}}</ion-title>
+
+    <br>
+
+    <ion-input (ionInput)="calculateChange()" type="number" label="Valor Recebido" label-placement="floating" fill="outline" placeholder="Valor Recebido" [(ngModel)]="receivedValue"></ion-input>
+
+    <br>
+
+    <ion-title>Troco:</ion-title>
+    <ion-title>R${{change}}</ion-title>
+
+    <br>
+
+    <ion-button expand="block" color="success" (click)="confirmPayment()">Confirmar Pagamento</ion-button>
+    <ion-button expand="block" color="danger" (click)="cancelPayment()">Cancelar</ion-button>
+  </div>
+</ion-content>
