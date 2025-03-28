@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ComandaService {
-  private apiUrl = 'http://192.168.0.121:3000/';
+  private apiUrl = 'http://192.168.0.132:3000/';
 
   constructor(private http: HttpClient) { }
 
@@ -36,5 +36,9 @@ export class ComandaService {
 
   newProduct(route: string, descricao: string, vlrUnitario: number): Observable<any> {
     return this.http.post<any>(this.apiUrl + route, { descricao, vlrUnitario });
+  }
+
+  insertProductInOrder(route: string, comandaId: number, produtoId: number, vlrUnitario: number) {
+    return this.http.post<any>(this.apiUrl + route, { comandaId, produtoId, vlrUnitario });
   }
 }

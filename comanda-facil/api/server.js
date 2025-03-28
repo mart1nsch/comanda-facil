@@ -36,7 +36,7 @@ app.get('/orders', (req, res) => {
 
 app.get('/products', (req, res) => {
     console.log('chama consulta produtos');
-    db.query('SELECT * FROM PRODUTOS ORDER BY DESCRICAO', (err, result) => {
+    db.query('SELECT * FROM PRODUTOS WHERE SITUACAO = "ATIVO" ORDER BY DESCRICAO', (err, result) => {
         if (err) {
             res.status(500).json({ error: err.message });
         } else {
@@ -52,6 +52,22 @@ app.get('/order/items/:id', (req, res) => {
     console.log('chama consulta itens comandas', id);
 
     db.query('SELECT P.DESCRICAO, C.QUANTIDADE FROM PRODUTOS P, COMANDAS_ITEM C WHERE P.ID = C.PRODUTOS_ID AND C.COMANDAS_ID = ?', [id],(err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ error: err.message });
+        } else {
+            console.log('Consultado Comandas');
+            res.json(result);
+        }
+    });
+});
+
+app.get('/order/:id', (req, res) => {
+    const id = req.params.id;
+
+    console.log('chama consulta uma comanda', id);
+
+    db.query('SELECT * FROM COMANDAS WHERE ID = ?', [id],(err, result) => {
         if (err) {
             console.log(err);
             res.status(500).json({ error: err.message });
@@ -94,18 +110,27 @@ app.post('/products', (req, res) => {
     });
 });
 
-app.post('/orders/itens', (req, res) => {
+app.post('/add-item', (req, res) => {
     const comandaId = req.body.comandaId;
     const produtoId = req.body.produtoId;
+    const vlrUnitario = req.body.vlrUnitario;
     
     console.log('chama insert item comanda');
 
     db.query('INSERT INTO COMANDAS_ITEM (COMANDAS_ID, PRODUTOS_ID) VALUES (?, ?)', [comandaId, produtoId], (err, result) => {
         if (err) {
+            console.log(err);
             res.status(500).json({ error: err.message });
         } else {
-            console.log('Inserido Comanda');
-            res.json({ id: result.insertId, comandaId, produtoId });
+            db.query('UPDATE COMANDAS SET VALOR_TOTAL = VALOR_TOTAL + ? WHERE ID = ?', [vlrUnitario, comandaId], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ error: err.message });
+                } else {
+                    console.log('Inserido Comanda');
+                    res.json({ id: comandaId });
+                }
+            });
         }
     });
 });

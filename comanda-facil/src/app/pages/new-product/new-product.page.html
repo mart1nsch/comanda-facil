@@ -7,8 +7,11 @@
 <ion-content [fullscreen]="true">
   <div class="ion-padding">
     <ion-button expand="block" (click)="goToProducts()">Voltar</ion-button>
+    <br>
     <ion-input label="Descrição" label-placement="floating" fill="outline" placeholder="Descrição" [(ngModel)]="descricao"></ion-input>
+    <br>
     <ion-input label="Preço" label-placement="floating" fill="outline" placeholder="Preço" [(ngModel)]="vlrUnitario"></ion-input>
+    <br>
     <ion-button expand="block" class="button-create" color="success" (click)="createProduct()">Criar</ion-button>
   </div>
 </ion-content>

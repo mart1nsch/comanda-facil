@@ -53,22 +53,36 @@ export class OrderPage implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute, private alertController: AlertController, private comandaService: ComandaService) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.route.queryParams.subscribe(params => {
       this.id = params['ID'];
-      this.comanda = params['COMANDA'];
-      this.mesa = params['MESA'];
-      this.valorTotal = params['VALOR_TOTAL'];
     });
+    this.getOrder();
     this.getItems();
+  }
+
+  ngOnInit() {
   }
 
   goToOrders() {
     this.router.navigate(['/orders']);
   }
 
+  goToAddItem() {
+    this.router.navigate(['/add-items'], { queryParams: { id: this.id } });
+  }
+
+  getOrder() {
+    this.comandaService.getOrders('order/' + this.id).subscribe(data => {
+      this.comanda = data[0].COMANDA;
+      this.mesa = data[0].MESA;
+      this.valorTotal = data[0].VALOR_TOTAL;
+    }, err => {
+      console.error(err);
+    });
+  }
+
   getItems() {
-    console.log('chamou', this.id)
     this.comandaService.getItems('order/items/' + this.id).subscribe(data => {
       this.items = data;
     }, err => {

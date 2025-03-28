@@ -7,8 +7,11 @@
 <ion-content [fullscreen]="true">
   <div class="ion-padding">
     <ion-button expand="block" class="button-home" (click)="goToOrders()">Voltar</ion-button>
+    <br>
     <ion-input label="Comanda" label-placement="floating" fill="outline" placeholder="Comanda" [(ngModel)]="comanda"></ion-input>
+    <br>
     <ion-input label="Mesa" label-placement="floating" fill="outline" placeholder="Mesa" [(ngModel)]="mesa"></ion-input>
+    <br>
     <ion-button expand="block" class="button-create" color="success" (click)="createOrder()">Criar</ion-button>
   </div>
 </ion-content>

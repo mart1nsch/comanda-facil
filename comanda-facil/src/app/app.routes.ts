@@ -34,4 +34,8 @@ export const routes: Routes = [
     path: 'payment-area',
     loadComponent: () => import('./pages/payment-area/payment-area.page').then( m => m.PaymentAreaPage)
   },
+  {
+    path: 'add-items',
+    loadComponent: () => import('./pages/add-items/add-items.page').then( m => m.AddItemsPage)
+  },
 ];

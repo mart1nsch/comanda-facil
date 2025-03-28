@@ -29,7 +29,7 @@ export class PaymentAreaPage implements OnInit {
   }
 
   cancelPayment() {
-    this.router.navigate(['/orders']);
+    this.router.navigate(['/order'], { queryParams: { ID: this.id } });
   }
 
   calculateChange() {
